@@ -12,7 +12,6 @@ import './blocks/conditionblocks';
 import './generator/generator';
 
 import { maze } from './levels/level_map';
-import { ReactComponent } from '*.svg';
 
 
 class App extends React.Component {
