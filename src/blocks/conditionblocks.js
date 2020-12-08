@@ -15,7 +15,6 @@ Blockly.Blocks['condition'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(20);
- this.setTooltip("");
   }
 };
 
@@ -33,7 +32,6 @@ Blockly.Blocks['condition_chemin'] = {
         .appendField(new Blockly.FieldDropdown([["tout droit","tout_droit"], ["à gauche","gauche"], ["à droite","droite"]]), "DIRECTION");
     this.setOutput(true, null);
     this.setColour(20);
- this.setTooltip("");
   }
 };
 

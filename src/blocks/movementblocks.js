@@ -35,7 +35,7 @@ Blockly.Blocks['avancer'] = {
     
   Blockly.JavaScript['tourner'] = function(block) {
     var dropdown_direction = block.getFieldValue('DIRECTION');
-    var code = "tourner_"+ dropdown_direction + "();"
+    var code = "tourner("+ dropdown_direction + ");"
     return code;
   };
 

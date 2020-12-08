@@ -11,8 +11,6 @@ Blockly.Blocks['instructions'] = {
         .appendField("instructions");
     this.setNextStatement(true, null);
     this.setColour(330);
- this.setTooltip("");
- this.setHelpUrl("");
  this.setMovable(false);  
  this.setDeletable(false);
  this.setEditable(false);
