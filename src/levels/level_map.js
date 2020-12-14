@@ -1,27 +1,5 @@
-/*
-const block_max = [ 50 , 50 ] ;
+import BlocklyComponent, { Block, Value } from '../Blockly';
 
-const resultType = {
-  UNSET: 0,
-  SUCCESS: 1,
-  FAILURE: -1,
-  TIMEOUT: 2,
-  ERROR: -2
-}
-
-const param = {
-    WALL: 0,
-    OPEN:  1,
-    START: 2,
-    FINISH: 3
-}
-
-const skins = 
-    {
-      sprite: 'maze/pegman.png',
-      tiles: 'maze/tiles_pegman.png'
-    }
-  */
 const parcours = {
       1:
         [[0, 0, 0, 0, 0, 0, 0, 0],
@@ -53,22 +31,36 @@ const parcours = {
 }
 
 const initial_blocks = {
-    0:
-    [ '</xml>' ],
+    0: [],
     1: 
     [
       '<block type="avancer" x="20" y="160"> </block>',
-      '</xml>'
     ],
-    2: 
-    [
-      '</xml>'
-    ],
-    3: 
+    2:[],
+    3:
     [
       '<block type="tourner" x="20" y="160"> </block>',
-      '</xml>'
     ]
+}
+
+const affichage = { 
+  1: 
+   <category name="Mouvement" colour="210"> 
+     <Block type="avancer"></Block>
+     <Block type="tourner"></Block>
+    </category>,
+  2:
+    <category name="Boucle" colour="120">
+          <Block type="controls_whileUntil">
+            <Value name="TIMES">
+              </Value>
+          </Block>
+    </category>,
+  3:
+    <category name="Condition" colour="20">
+    <Block type="condition"> </Block>
+    <Block type="condition_chemin"> </Block>
+    </category>
 }
 
 const init_position = {
@@ -80,14 +72,42 @@ const init_position = {
   [4,6,0]
 }
 
-const log = []
-
-const maze = {Parcours: parcours, Initial : initial_blocks , Init_pos: init_position}
+const maze = {Parcours: parcours, Initial : initial_blocks , Init_pos: init_position, Affichage: affichage}
 
 export { maze } ;
 
 
 //A REPRENDRE
+/*
+const block_max = [ 50 , 50 ] ;
+
+const resultType = {
+  UNSET: 0,
+  SUCCESS: 1,
+  FAILURE: -1,
+  TIMEOUT: 2,
+  ERROR: -2
+}
+
+const param = {
+    WALL: 0,
+    OPEN:  1,
+    START: 2,
+    FINISH: 3
+}
+
+const skins = 
+    {
+      sprite: 'maze/pegman.png',
+      tiles: 'maze/tiles_pegman.png'
+    }
+  */
+
+
+/*
+const log = []
+*/ 
+
 
 /*Maze.reset = function(first) {
   // Kill all tasks.
