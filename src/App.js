@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-
 import './App.css';
-
-import BlocklyComponent, { Block } from './Blockly'; //, Value, Field, Shadow 
-import Blockly from './Blockly';
+import React, { useState } from 'react';
+import BlocklyComponent from './Blockly'; //, Value, Field, Shadow Block Category
+import Blockly, { Block, Category, Value } from './Blockly';
 import BlocklyJS from 'blockly/javascript';
 
 import './blocks/customblocks';
@@ -12,63 +10,83 @@ import './blocks/conditionblocks';
 
 import './generator/generator';
 
-import { maze } from './levels/level_map';
+import { maze } from './levels/maze';
+import { createCookie, readCookie, eraseCookie} from './cookie'
 
 function App() {
-  const [level, setLevel] = useState(0);
+  createCookie('ppkcookie0',0,7)
+  var level_cookie = readCookie('ppkcookie');
+  var def_level = readCookie('ppkcookie0')
+  const [level, setLevel] = useState( level_cookie ? level_cookie : def_level );  
   const simpleWorkspace = React.createRef();
   const [parcours, setParcours] = useState(maze.Parcours[level]);
   const [xml, setXml] = useState(maze.Initial[level]);
   const [position, setPosition] = useState(maze.Init_pos[level]);
-  const [affichage, setAffichage] = useState(maze.Affichage[level]);
+  const [toolbox, setToolbox] = useState(maze.Affichage[level]);
  // j'aimerai que la MAJ de level puisse mettre à jour tt les autres composants
+                
 
-  const maj = level => {
-    setParcours(maze.Parcours[level]);
-    setXml(maze.Initial[level]);
-    setPosition(maze.Init_pos[level]);
-    setAffichage(maze.Affichage[level]);
-    console.log(BlocklyComponent.toolbox);
+  function maj () {
+  generateCode()
+  var test = 1;
+  if ( level_cookie) {
+    test = parseInt(level_cookie) +1; 
+    }  
+    createCookie('ppkcookie',test,7)
+    document.location.reload();
   }
- 
+
+  function reset_level() {
+    setLevel(0);
+    document.location.reload();
+    eraseCookie('ppkcookie');
+  };
+
+  function generateCode() {
+    var code = BlocklyJS.workspaceToCode(
+      simpleWorkspace.current.workspace
+    );
+    alert(code); //j'ai change le console.log en alert pour afficher les instructions
+    //console.log(this.state.affichage);
+    //console.log(this.state.xml[this.state.level])
+  }  
+
   return (
     <div>
       
       <div id="ecran">
-        <div class="carte"> 
+        <div class="bandeau"> 
+          <div class="bouton">   
+              <button onClick={() => reset_level()}>
+              Reset des levels
+              </button>
+              <button onClick={() => maj()}>
+                Niveau suivant
+              </button>
+              <button onClick={() => generateCode()}>
+                Code
+              </button>
+          </div>
+              <div class="titre"> <h1> nous sommes au parcours {level} </h1> et la position initale est {position} </div>
+           </div>
+           <div class="carte"/>
 
-        <p>Vous avez cliqué {level} fois</p>
-      <button onClick={() => setLevel(level + 1)}>
-        Cliquez ici
-      </button>
-      <p> l'affichage du niveau {level} est {parcours} </p>
-      <button onClick={() => maj(level)}>
-        Cliquez ici
-      </button>
-       <div> <h1> nous sommes au parcours {parcours} </h1> et la position est {position} et au level {level} </div>
-        </div>
       </div> 
       
 
-        <BlocklyComponent ref={simpleWorkspace}
-        readOnly={false} trashcan={true} media={'media/'} horizontalLayout={true} maxBlocks={100} grid={false}
-
+        <BlocklyComponent 
+        ref={simpleWorkspace}
+        readOnly={false}
+        trashcan={true} 
+        media={'media/'} 
+        horizontalLayout={true} 
+        maxBlocks={100} 
+        grid={false}
         move={{ scrollbars: false }}
-
-        initialXml= 
-        {      
-        ['<xml>','<block type="instructions" x="20" y="120"  > </block>'] 
-        + xml[level] 
-        + ['</xml>']
-        } 
-
-        >   
-        <category name="Mouvement" colour="210"> 
-        <Block type="avancer"></Block>
-        <Block type="tourner"></Block>
-        </category>
-
-        {affichage}
+        initialXml=  { xml }
+        > 
+        
+        {toolbox}
 
         </BlocklyComponent>
 

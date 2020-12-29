@@ -1,78 +1,9 @@
-import BlocklyComponent, { Block, Value } from '../Blockly';
 
-const parcours = {
-      1:
-        [[0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 2, 1, 3, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0]],
-      2:
-        [[0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 3, 0],
-        [0, 0, 0, 0, 2, 1, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0]],
-      3:
-        [[0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 1, 1, 1, 0],
-        [0, 0, 0, 1, 1, 0, 1, 0],
-        [0, 0, 0, 0, 0, 0, 2, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0]],
-}
-
-const initial_blocks = {
-    0: [],
-    1: 
-    [
-      '<block type="avancer" x="20" y="160"> </block>',
-    ],
-    2:[],
-    3:
-    [
-      '<block type="tourner" x="20" y="160"> </block>',
-    ]
-}
-
-const affichage = { 
-  1: 
-   <category name="Mouvement" colour="210"> 
-     <Block type="avancer"></Block>
-     <Block type="tourner"></Block>
-    </category>,
-  2:
-    <category name="Boucle" colour="120">
-          <Block type="controls_whileUntil">
-            <Value name="TIMES">
-              </Value>
-          </Block>
-    </category>,
-  3:
-    <category name="Condition" colour="20">
-    <Block type="condition"> </Block>
-    <Block type="condition_chemin"> </Block>
-    </category>
-}
-
-const init_position = {
-  1: 
-  [5,2,1],
-  2:
-  [5,5,1],
-  3:
-  [4,6,0]
-}
-
-const maze = {Parcours: parcours, Initial : initial_blocks , Init_pos: init_position, Affichage: affichage}
+import parcours from './parcours';
+import initial_blocks from './initial_blocks';
+import affichage from './affichage';
+import initial_position from './initial_position'
+const maze = {Parcours: parcours, Initial : initial_blocks , Init_pos: initial_position, Affichage: affichage}
 
 export { maze } ;
 
