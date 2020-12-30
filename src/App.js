@@ -11,7 +11,7 @@ import './blocks/conditionblocks';
 import './generator/generator';
 
 import { maze } from './levels/maze';
-import { createCookie, readCookie, eraseCookie} from './cookie'
+import { createCookie, readCookie, eraseCookie } from './cookie';
 
 function App() {
   createCookie('ppkcookie0',0,7)
@@ -23,6 +23,7 @@ function App() {
   const [xml, setXml] = useState(maze.Initial[level]);
   const [position, setPosition] = useState(maze.Init_pos[level]);
   const [toolbox, setToolbox] = useState(maze.Affichage[level]);
+  const [max_blocks, setMax_Blocks] = useState(maze.Max_Blocks[level]);
  // j'aimerai que la MAJ de level puisse mettre à jour tt les autres composants
                 
 
@@ -63,13 +64,11 @@ function App() {
               <button onClick={() => maj()}>
                 Niveau suivant
               </button>
-              <button onClick={() => generateCode()}>
-                Code
-              </button>
           </div>
               <div class="titre"> <h1> nous sommes au parcours {level} </h1> et la position initale est {position} </div>
            </div>
            <div class="carte"/>
+           <h4> Nombre de block max : {max_blocks} </h4>
 
       </div> 
       
@@ -80,7 +79,7 @@ function App() {
         trashcan={true} 
         media={'media/'} 
         horizontalLayout={true} 
-        maxBlocks={100} 
+        maxBlocks={max_blocks} 
         grid={false}
         move={{ scrollbars: false }}
         initialXml=  { xml }
