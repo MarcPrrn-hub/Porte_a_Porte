@@ -1,0 +1,16 @@
+.fill {
+  position: absolute;
+  height: 100%;
+  width: 65%;
+  right: 0;
+  bottom: 0;
+}
+
+.react {
+  position: absolute;
+  height: 100%;
+  width: 73%;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+}
