@@ -21,7 +21,6 @@
 
 .carte {
   position: relative;
-  background: url(./assets/maze.jpg) no-repeat center  ; 
   width: 100%;
   height: 100%;
 }

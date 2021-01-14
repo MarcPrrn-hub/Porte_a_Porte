@@ -13,10 +13,10 @@ import Interpreter from 'js-interpreter';
 
 // rendu graphique de la carte
 import { Graphics } from 'pixi.js';
-import { PixiComponent, Stage , Sprite, Container, useTick} from '@inlet/react-pixi';
+import { PixiComponent, Stage , Sprite, Container, useTick, useIteration} from '@inlet/react-pixi';
 import bunny from './assets/test.png';
 import pegman from './assets/pegman.png';
-
+import carte from './assets/carte.jpg';
 
 // configuration des paramètres du niveau : carte, nb block limit, xml etc.
 import maze from './Maze/maze'
@@ -56,43 +56,21 @@ export default function App() {
   }
 /* ************************************************************************************ */
 
-const reducer = (_, { data }) => data;
+const [x_bunny, setX] = useState(150);
+const [y_bunny, setY] = useState(210);
 
-const Bunny = () => {
-  const [motion, update] = useReducer(reducer);
-  const iter = useRef(0);
-  useTick(delta => {
-    const i = (iter.current += 0.05 * delta);
-    update({
-      type: 'update',
-      data: {
-        x: Math.sin(i) * 100,
-        y: Math.sin(i / 1.5) * 100,
-        rotation: Math.sin(i) * Math.PI,
-        anchor: Math.sin(i / 2),
-      },
-    })
-  });
-  return (
-    <Sprite
-      image={bunny}
-      {...motion}
-    />
-  )
+const avancer = () => {
+  setX(x_bunny+10);
 }
-
-let rotation = 0;
-
-const BunnyBlockly = () => (
-  <Sprite
-    image={bunny}
-    x={180}
-    y={200}
-    rotation={rotation}
-  />
-);
-
-
+const tourner_g = () => {
+  setY(y_bunny-10);
+}
+const reculer = () => {
+  setX(x_bunny-10);
+}
+const tourner_d = () => {
+  setY(y_bunny+10);
+}
 
 /* ************************************************************************************* */
   return (
@@ -116,20 +94,25 @@ const BunnyBlockly = () => (
       />
 
      <div class="react"> 
-    
-     <div class="carte">
 
-     <Stage options={{ transparent: true }}>
-      <Container x={150} y={150}>
-        <BunnyBlockly />
+     <button onClick={avancer}> avancer </button>
+     <button onClick={tourner_g}> tourner à gauche </button> 
+     <button onClick={reculer}> reculer </button>
+     <button onClick={tourner_d}> tourner à droite </button> 
+        
+     <Stage class="carte">
+
+      <Container>
+
+      <Sprite image={carte}/>
+
+      <Sprite image={bunny} x={x_bunny} y={y_bunny} /> 
+
       </Container>
+
     </Stage>
 
 
-      {/* <div> 
-      <button onClick={reset_level}> Reset des levels / on est niveau {level} </button>
-      <button onClick={maj}> Niveau suivant </button> 
-      </div> */}
 
      </div>    
 
@@ -141,7 +124,6 @@ const BunnyBlockly = () => (
       <div> Il te reste nombre de blocs </div> */}
 
    
-      </div>
 
     </>
   )
