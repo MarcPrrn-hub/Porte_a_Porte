@@ -1,4 +1,8 @@
-.fill {
+.body {
+  width :100% ;
+}
+
+.blockly {
   position: absolute;
   height: 100%;
   width: 65%;
@@ -9,8 +13,26 @@
 .react {
   position: absolute;
   height: 100%;
-  width: 73%;
+  width: 72%;
   left: 0;
   bottom: 0;
   z-index: 1;
+}
+
+.carte {
+  position: relative;
+  background: url(./assets/maze.jpg) no-repeat center  ; 
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+@media(min-width: 768px) and (max-width: 1388px)
+{
+.blockly{
+}
+.react{
+}
 }

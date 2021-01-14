@@ -1,5 +1,9 @@
 import Blockly from 'blockly';
 
+// Chaque bloc se sépare en 2 parties : 
+// la définition du bloc au sens de blockly : la forme, les inputs  et le contenu
+// la définition du bloc pour son interprétation en javascript
+
 Blockly.Blocks['maze_si'] = { 
         /**
    * Block for turning left or right.
@@ -124,7 +128,7 @@ Blockly.Blocks['avancer'] = {
     init: function() {
       this.appendDummyInput()
           .appendField("tourner à")
-          .appendField(new Blockly.FieldDropdown([["droite" + '\u21BA',"droite" ], ["gauche"+ ' \u21BB',"gauche"]]), "DIRECTION");
+          .appendField(new Blockly.FieldDropdown([["droite \u21BA" ,"droite" ], ["gauche \u21BB","gauche"]]), "DIRECTION");
       this.setPreviousStatement(true);
       this.setNextStatement(true);
       this.setColour(315);

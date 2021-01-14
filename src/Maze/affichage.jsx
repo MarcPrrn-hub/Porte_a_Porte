@@ -42,14 +42,46 @@ const affichage = [
     colour: '120',
     blocks: [
       {
-        type: 'maze_si'
+        type: 'maze_jusqua'
       },
-      {
-        type: 'maze_si_sinon'
-      }
     ]
   }
   ],
+  [
+    {
+       name: 'Mouvement',
+       colour: '315',
+       blocks: [
+         {
+           type: 'avancer'
+         },
+         {
+           type: 'tourner'
+         }
+       ]
+     },
+     {
+      name: 'Boucles',
+      colour: '120',
+      blocks: [
+        {
+          type: 'maze_jusqua'
+        },
+      ]
+    },
+     {
+      name: 'Condition',
+      colour: '210',
+      blocks: [
+        {
+          type: 'maze_si'
+        },
+        {
+          type: 'maze_si_sinon'
+        },
+      ]
+    }
+    ],
 ]
 
 export  {affichage}

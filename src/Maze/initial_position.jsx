@@ -5,7 +5,7 @@ const initial_position = [
     [4,6]
 ]
 
-  const max_blocks = [3, Infinity, 2, 5, 5, 5, 5, 10, 7, 10];
+  const max_blocks = [Infinity, Infinity, 2, 5, 5, 5, 5, 10, 7, 10];
 
   const resultType = {
     UNSET: 0,
