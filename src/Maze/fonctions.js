@@ -1,2 +1,0 @@
-// fonctions / attributs etc necessaire 
-

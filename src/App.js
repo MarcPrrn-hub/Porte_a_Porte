@@ -27,49 +27,70 @@ export default function App() {
   const [level, setLevel] = useState(0);
   const [initialXml, setXml] = useState('<xml> <block type="avancer"> </block> </xml>');
   const [toolboxCategories, setTB] = useState( maze.Affichage[level] );
-
+  const [x_bunny, setX] = useState(50);
+  const [y_bunny, setY] = useState(275);
 /* *********************************************************************************** */
 
-  // FONCTION TRANSITOIRE 
-  function workspaceDidChange(workspace) {
-    const newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace));
-    // document.getElementById('generated-xml').innerText = newXml;
-
-    const code = Blockly.JavaScript.workspaceToCode(workspace);
-    // document.getElementById('code').value = code;
-  }
 
 // CHANGER LE NIVEAU ET L AFFICHAGE DES TOOLBOX
   const maj = () => {
     setTB(maze.Affichage[level+1]);
     setLevel(level+1);
-
-    // const code = Blockly.JavaScript.workspaceToCode(Blockly.workspace);
-    // const myInterpreter = new Interpreter(code);
-    // myInterpreter.run();
   }
-
   // RESET DU NIVEAU : 0 ET AFFICHAGE TOOLBOX
   const reset_level = () => {
     setLevel(0);
     setTB(maze.Affichage[0]);
+    setX(50);
+    setY(275);
   }
-/* ************************************************************************************ */
+  // RUN CODE & INTERPRETER 
 
-const [x_bunny, setX] = useState(150);
-const [y_bunny, setY] = useState(210);
+  const run_code = () => {
+    const code = Blockly.JavaScript.workspaceToCode(Blockly.workspace);
+    console.log(code)
+    const myInterpreter = new Interpreter(code, initInterpreter);
+    console.log(myInterpreter);
+    console.log(myInterpreter.run())
+    myInterpreter.run();
+  }
+
+  const initInterpreter = (interpreter, globalObject) => {
+    var wrapper;
+
+      wrapper = (id) => {
+        avancer();
+  };
+    interpreter.setProperty(globalObject, 'avancer', interpreter.createNativeFunction(wrapper));
+
+      wrapper = (id) => {
+        gauche();
+    }
+    interpreter.setProperty(globalObject, 'gauche', interpreter.createNativeFunction(wrapper));
+
+      wrapper = (id) => {
+          droite()
+    }
+    interpreter.setProperty(globalObject, 'droite', interpreter.createNativeFunction(wrapper));
+
+  };
+
+
+
+/* ************************************************************************************ */
+// FONCTIONS DE DEPLACEMENT 
 
 const avancer = () => {
-  setX(x_bunny+10);
+  setX(x_bunny+25);
 }
-const tourner_g = () => {
-  setY(y_bunny-10);
+const gauche = () => {
+  setY(y_bunny-25);
 }
 const reculer = () => {
-  setX(x_bunny-10);
+  setX(x_bunny-25);
 }
-const tourner_d = () => {
-  setY(y_bunny+10);
+const droite = () => {
+  setY(y_bunny+25);
 }
 
 /* ************************************************************************************* */
@@ -90,21 +111,23 @@ const tourner_d = () => {
           horizontalLayout: true,
           scrollbars: false,
         }}
-        workspaceDidChange={workspaceDidChange}
       />
 
      <div class="react"> 
 
      <button onClick={avancer}> avancer </button>
-     <button onClick={tourner_g}> tourner à gauche </button> 
+     <button onClick={gauche}> tourner à gauche </button> 
      <button onClick={reculer}> reculer </button>
-     <button onClick={tourner_d}> tourner à droite </button> 
-        
-     <Stage class="carte">
+     <button onClick={droite}> tourner à droite </button> 
+     <button onClick={reset_level}>RESET </button>  
+     <button onClick={maj}> LEVEL +1 </button>  
+     <button onClick={run_code}> LANCER CODE </button>  
 
-      <Container>
+     <Stage class="carte" options={{ transparent:true }}>
 
-      <Sprite image={carte}/>
+      <Container position={[200,100]} >
+
+      <Sprite image={carte} />
 
       <Sprite image={bunny} x={x_bunny} y={y_bunny} /> 
 
@@ -115,14 +138,6 @@ const tourner_d = () => {
 
 
      </div>    
-
-
-      {/* <pre id="generated-xml"></pre> 
-      <textarea id="code" style={{ height: "200px", width: "400px" }} value=""></textarea>
-      
-
-      <div> Il te reste nombre de blocs </div> */}
-
    
 
     </>
