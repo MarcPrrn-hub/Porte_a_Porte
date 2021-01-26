@@ -1,0 +1,107 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Blockly-gamepad demo</title>
+
+    <link rel="stylesheet" type="text/css" href="App.css">
+    <!--Blockly-->
+    <script src="./libs/blockly/blockly_compressed.js"></script>
+    <script src="./libs/blockly/blocks_compressed.js"></script>
+    <script src="./libs/blockly/javascript_compressed.js"></script>
+    <script src="./libs/blockly/en.js"></script>
+
+    <!--blockly-gamepad-->
+    <script src="./libs/gamepad/gamepad.min.js"></script>
+</head>
+
+<body>
+
+
+    <main>
+        <!--game div-->
+        <div id="game-div">
+            <!--game 1-->
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none" version="1.1" id="1" width="400px"
+                height="400px" viewBox="0 0 400 400">
+                <image xlink:href="images/maze1.png" class="maze" x="0" y="-1" width="400" height="399"></image>
+                <image id="finish1" xlink:href="images/marker.png" height="34" width="20" x="215" y="146"></image>
+                <clipPath id="pegmanClipPath1">
+                    <rect id="clipRect1" width="49" height="52" x="101" y="191"></rect>
+                </clipPath>
+                <image id="pegman1" xlink:href="images/pegman.png" height="52" width="1029"
+                    clip-path="url(#pegmanClipPath1)" x="-95" y="191" transform="rotate(0, 0, 0)"></image>
+            </svg>
+            <!--game 2-->
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none" version="1.1" id="2" width="400px"
+                height="400px" viewBox="0 0 400 400">
+                <image xlink:href="images/maze2.png" class="maze" x="0" y="0" width="400" height="400"></image>
+                <image id="finish2" xlink:href="images/marker.png" height="34" width="20" x="215" y="46"></image>
+                <clipPath id="2pegmanClipPath">
+                    <rect id="clipRect2" width="49" height="52" x="51" y="291"></rect>
+                </clipPath>
+                <image id="pegman2" xlink:href="images/pegman.png" height="52" width="1029"
+                    clip-path="url(#2pegmanClipPath)" x="-145" y="291" transform="rotate(0, 0, 0)"></image>
+            </svg>
+            <!--capacity div-->
+            <div id="capacity" style="display: none;">You have <span id="capacityNumber">10</span> blocks left.</div>
+
+        </div>
+        <!--workspace div-->
+        <div id="blockly-editor">
+            <div id="blockly-div"></div>
+            <!--toolbox without categories-->
+            <xml id="toolbox" style="display: none">
+                <block type="move"></block>
+                <block type="turn"></block>
+                <block type="turn">
+                    <field name="DIRECTION">3</field>
+                </block>
+                <block type="repeat_until"></block>
+                <block type="if_path"></block>
+                <block type="if_else_path"></block>
+            </xml>
+            <!--toolbox whit categories-->
+            <xml id="toolbox_c" style="display: none">
+                <category name="Controls" colour="285">
+                    <block type="move"></block>
+                    <block type="turn"></block>
+                    <block type="turn">
+                        <field name="DIRECTION">3</field>
+                    </block>
+                </category>
+                <category name="Logic" colour="120">
+                    <block type="repeat_until"></block>
+                    <block type="if_path"></block>
+                    <block type="if_else_path"></block>
+                </category>
+            </xml>
+        </div>
+    </main>
+
+    <!--scripts-->
+    <script src="js/levels.js"></script>
+    <script src="js/gui.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/index.js"></script>
+
+
+    <!--remaining block-->
+    <script>
+        // update remaining block
+        Blockly.getMainWorkspace().addChangeListener(() => {
+            let capacity = Blockly.getMainWorkspace().remainingCapacity()
+            if (capacity != Infinity) {
+                // show capacity div
+                document.getElementById('capacity').style.display = 'block'
+                document.getElementById('capacityNumber').innerHTML = capacity
+            } else {
+                // hide capacity div
+                document.getElementById('capacity').style.display = 'none'
+            }
+        })
+    </script>
+
+</body>
+
+</html>
